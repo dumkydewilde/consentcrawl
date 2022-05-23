@@ -1,0 +1,19 @@
+{
+    "onetrust-cookiepro" : "#onetrust-accept-btn-handler",
+    "onetrust-enterprise" : "#accept-recommended-btn-handler",
+    "cookiebot" : "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll",
+    "cookiehub" : "button.ch2-allow-all-btn",
+    "typo3-wacon" : ".waconcookiemanagement .cookie-accept",
+    "cookiefirst" : "[data-cookiefirst-action='accept']",
+    "osano" : ".osano-cm-accept-all",
+    "orejime" : ".orejime-Button--save",
+    "axeptio" : "#axeptio_btn_acceptAll",
+    "civic-uk-cookie-control" : "#ccc-notify-accept",
+    "usercentrics" : "[data-testid='uc-accept-all-button']",
+    "cookie-yes" : "[data-cky-tag='accept-button']",
+    "secure-privacy" : ".evSpAcceptBtn",
+    "quantcast" : "#qc-cmp2-ui button[mode='primary']",
+    "didomi" : "#didomi-notice-agree-button",
+    "trustarc-truste" : "#truste-consent-button",
+    "non-specific-custom" : "#AcceptCookiesButton, #acceptCookies, .cookie-accept, #cookie-accept, .gdpr-cookie--accept-all, button[class*='accept'], button[id*='accept'], [class*='accept'], [id*='accept'], #cookiebanner button, [class*='cookie']"
+}
