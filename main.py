@@ -61,7 +61,7 @@ async def extract_data(url, browser, blacklist=[], consent_accept_selectors={}, 
         cookies_no_consent = [{
             "name" : c["name"],
             "domain" : c["domain"],
-            "expires_days" : (date.fromtimestamp(int(c["expires"])) - date.today()).days if int(c["expires"]) < 200000000000 else -1
+            "expires_days" : (date.fromtimestamp(int(c["expires"])) - date.today()).days if int(c["expires"]) < 200000000000 else -1 # prevent out of range errors for the date
         } for c in cookies]
 
         
