@@ -12,19 +12,20 @@ import argparse
 def batch(iterable, n=1):
     """
     Turn any iterable into a generator of batches of batch size n
+    from: https://stackoverflow.com/a/8290508
     """
     l = len(iterable)
     for ndx in range(0, l, n):
         yield iterable[ndx:min(ndx + n, l)]
 
-async def extract_data(url, browser, blacklist=[], consent_accept_selectors={}, screenshot=True):
+async def extract_data(url, browser, blocklist=[], consent_accept_selectors={}, screenshot=True):
     """
     Open a new browser context with a URL and extract data about cookies and 
     tracking domains before and after consent.
     Returns:
     - All third party domains requested
     - Third party domains requested before consent
-    - All tracking domains (based on blacklist)
+    - All tracking domains (based on blocklist)
     - Tracking domains before consent
     - All cookies (name, domain, expiration in days)
     - Cookies set before consent
@@ -55,7 +56,7 @@ async def extract_data(url, browser, blacklist=[], consent_accept_selectors={}, 
         # Capture data pre-consent
         thirdparty_requests = list(filter(lambda req_url: not domain_name in req_url, req_urls))
         third_party_domains_no_consent = list(set(map(lambda r: re.search("https?://(?:www.)?([^\/]+\.[^\/]+)", r).group(1), thirdparty_requests)))
-        tracking_domains_no_consent = list(set([re.search("[^\.]+\.[a-z]+$", d).group(0) for d in third_party_domains_no_consent if d in blacklist]))
+        tracking_domains_no_consent = list(set([re.search("[^\.]+\.[a-z]+$", d).group(0) for d in third_party_domains_no_consent if d in blocklist]))
 
         cookies = await browser_context.cookies()
         cookies_no_consent = [{
@@ -81,7 +82,7 @@ async def extract_data(url, browser, blacklist=[], consent_accept_selectors={}, 
 
         thirdparty_requests = list(filter(lambda req_url: not domain_name in req_url, req_urls))
         third_party_domains_all = list(set(map(lambda r: re.search("https?://(?:www.)?([^\/]+\.[^\/]+)", r).group(1), thirdparty_requests)))
-        tracking_domains_all = list(set([re.search("[^\.]+\.[a-z]+$", d).group(0) for d in third_party_domains_all if d in blacklist]))
+        tracking_domains_all = list(set([re.search("[^\.]+\.[a-z]+$", d).group(0) for d in third_party_domains_all if d in blocklist]))
 
         cookies = await browser_context.cookies()
         
@@ -109,7 +110,7 @@ async def extract_data(url, browser, blacklist=[], consent_accept_selectors={}, 
         logging.debug(url, e)
         return None
 
-async def process_urls(urls, batch_size, blacklist, consent_accept_selectors, headless=True, screenshot=True, ndjson=False):
+async def process_urls(urls, batch_size, blocklist, consent_accept_selectors, headless=True, screenshot=True, ndjson=False):
     """
     Start the Playwright browser, run the URLs to test in batches asynchronously
     and write the data to a file.
@@ -119,7 +120,7 @@ async def process_urls(urls, batch_size, blacklist, consent_accept_selectors, he
 
         results = []
         for urls_batch in batch(urls, batch_size):
-            data = [extract_data(url, browser, blacklist, consent_accept_selectors, screenshot) for url in urls_batch]
+            data = [extract_data(url, browser, blocklist, consent_accept_selectors, screenshot) for url in urls_batch]
             results.extend([r for r in await asyncio.gather(*data) if r]) # run all urls in parallel
     
         await browser.close()
@@ -137,7 +138,7 @@ if __name__ == "__main__":
     parser.add_argument('url')
     parser.add_argument('--debug', default=False, action="store_true")
     parser.add_argument('--ndjson', default=False, action="store_true")
-    parser.add_argument('--headless', default=False, action="store_true")
+    parser.add_argument('--no_headless', default=False, action="store_true")
     parser.add_argument('--no_screenshot', default=False, action="store_true")
     parser.add_argument('--batch_size', default=15, type=int)
 
@@ -159,7 +160,7 @@ if __name__ == "__main__":
     else:
         urls = [args.url]
 
-    # Retrieve analytics and marketing domains from blacklist (https://github.com/anudeepND/blacklist)
+    # Retrieve analytics and marketing domains from blocklist (https://github.com/anudeepND/blocklist)
     ad_domains_file = requests.get("https://hosts.anudeep.me/mirror/adservers.txt").text
     ad_domains = set([line.split('0.0.0.0 ')[-1] 
         for line in ad_domains_file.split("\n") 
@@ -170,5 +171,5 @@ if __name__ == "__main__":
     with open('consent_managers.json', 'r') as f:
         consent_accept_selectors = json.load(f)
 
-    asyncio.run(process_urls(urls, args.batch_size, ad_domains, consent_accept_selectors, args.headless, not args.no_screenshot, args.ndjson))
+    asyncio.run(process_urls(urls, args.batch_size, ad_domains, consent_accept_selectors, not args.no_headless, not args.no_screenshot, args.ndjson))
     
