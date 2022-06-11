@@ -1,5 +1,6 @@
 screenshots/
 site_data.json
+urls.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

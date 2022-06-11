@@ -156,7 +156,7 @@ if __name__ == "__main__":
     if not args.url.startswith("http"):
         # assume it's a file if it doesn't start with http
         with open(args.url, 'r') as f:
-            urls = [l.strip().lower() for l in set(f.readlines()) if len(l) > 0]
+            urls = list(set([l.strip().lower() for l in set(f.readlines()) if len(l) > 0]))
     else:
         urls = [args.url]
 
