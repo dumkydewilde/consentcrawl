@@ -12,3 +12,12 @@ Playwright allows you to automate browser windows. This script takes a list of U
 | --debug   | Flag to log output for debugging |
 | --nd_json | Add flag to store output as new line delimited JSON for use in e.g. BigQuery
 |--no_screenshot   | Flag to not save screenshots |
+|--no_headless   | Flag to show actual browser windows |
+
+You can provide either a single URL or a file with one URL per line.
+
+`python3 main.py "url_list.txt" --batch_size=10`
+
+Or for a single site, showing the actual browser window
+
+`python3 main.py https://www.dumky.net --no_headless`
