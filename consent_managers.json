@@ -1,6 +1,7 @@
 {
     "onetrust-cookiepro" : "#onetrust-accept-btn-handler",
     "onetrust-enterprise" : "#accept-recommended-btn-handler",
+    "onetrust-optanon" : ".optanon-allow-all",
     "cookiebot" : "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll",
     "cookiehub" : "button.ch2-allow-all-btn",
     "typo3-wacon" : ".waconcookiemanagement .cookie-accept",
@@ -14,6 +15,7 @@
     "secure-privacy" : ".evSpAcceptBtn",
     "quantcast" : "#qc-cmp2-ui button[mode='primary']",
     "didomi" : "#didomi-notice-agree-button",
-    "trustarc-truste" : "#truste-consent-button",
-    "non-specific-custom" : "#AcceptCookiesButton, #acceptCookies, .cookie-accept, #cookie-accept, .gdpr-cookie--accept-all, button[class*='accept'], button[id*='accept'], [class*='accept'], [id*='accept'], #cookiebanner button, [class*='cookie']"
+    "cookie-law-info" : "[data-cli_action='accept']",
+    "trustarc-truste" : "#truste-consent-button, iframe.truste_popframe",
+    "non-specific-custom" : "#AcceptCookiesButton, #acceptCookies, .cookie-accept, #cookie-accept, .gdpr-cookie--accept-all, #acptBtn, #acceptButton, #accept-button, button[class*='accept'], button[id*='accept'], [class*='accept'], [id*='accept'], input[value*='Tracking'], .optIn, .opt-in, .optin,  #cookiebanner button, [class*='cookie']"
 }

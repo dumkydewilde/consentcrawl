@@ -1,13 +1,8 @@
-import asyncio
-import os
-import re
+import asyncio, os, re, base64, json
+import logging, argparse, requests
 from playwright.async_api import async_playwright
-import base64
-import json
 from datetime import date
-import requests
-import logging
-import argparse
+from tqdm import tqdm
 
 def batch(iterable, n=1):
     """
@@ -73,12 +68,25 @@ async def extract_data(url, browser, blocklist=[], consent_accept_selectors={}, 
             if await page.locator(consent_accept_selectors[k]).count() > 0:
                 consent_manager = k
                 try:
-                    # explicit wait for navigation as some pages will reload after accepting cookies
-                    async with page.expect_navigation(wait_until="networkidle", timeout=15000):
-                        await page.click(consent_accept_selectors[k], delay=10)
+                    if consent_manager == "trustarc-truste":
+                        iframe_button = page.frame_locator(consent_accept_selectors[k]).first.locator('a.call')
+                        await iframe_button.click()
+                    else:
+                        # explicit wait for navigation as some pages will reload after accepting cookies
+                        async with page.expect_navigation(wait_until="networkidle", timeout=15000):
+                            await page.click(consent_accept_selectors[k], delay=10)
                 except Exception as e:
-                    logging.debug(url, e)
+                    logging.debug(url)
+                    logging.debug(e)
                 break
+
+        # final try to click anything containing 'accept'
+        if consent_manager == "none detected":
+            try:
+                await page.locator('text=accept').click()
+                consent_manager = "none detected - accept clicked"
+            except Exception as e:
+                    logging.debug(f"Unable to accept cookies on: ${url}")
 
         thirdparty_requests = list(filter(lambda req_url: not domain_name in req_url, req_urls))
         third_party_domains_all = list(set(map(lambda r: re.search("https?://(?:www.)?([^\/]+\.[^\/]+)", r).group(1), thirdparty_requests)))
@@ -97,6 +105,7 @@ async def extract_data(url, browser, blocklist=[], consent_accept_selectors={}, 
         return {
             "id" : base64_url,
             "url" : url,
+            "extraction_date" : str(date.today()),
             "cookies_all" : cookies_all,
             "cookies_no_consent" : cookies_no_consent,
             "third_party_domains_all" : third_party_domains_all,
@@ -107,8 +116,13 @@ async def extract_data(url, browser, blocklist=[], consent_accept_selectors={}, 
             "screenshot" : screenshot_file
         }
     except Exception as e:
-        logging.debug(url, e)
+        logging.debug(url)
+        logging.debug(e)
         return None
+
+async def write_to_file(data):
+    with open('site_data.json', 'a') as f:
+        f.writelines([json.dumps(item) + "\n" for item in data])
 
 async def process_urls(urls, batch_size, blocklist, consent_accept_selectors, headless=True, screenshot=True, ndjson=False):
     """
@@ -118,18 +132,11 @@ async def process_urls(urls, batch_size, blocklist, consent_accept_selectors, he
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=headless)
 
-        results = []
-        for urls_batch in batch(urls, batch_size):
+        for urls_batch in tqdm(batch(urls, batch_size), total=round(len(urls)/batch_size)):
             data = [extract_data(url, browser, blocklist, consent_accept_selectors, screenshot) for url in urls_batch]
-            results.extend([r for r in await asyncio.gather(*data) if r]) # run all urls in parallel
+            await write_to_file([r for r in await asyncio.gather(*data) if r]) # run all urls in parallel
     
         await browser.close()
-
-        with open('site_data.json', 'w') as f:
-            if ndjson:
-                f.writelines([json.dumps(r) + "\n" for r in results])
-            else:
-                f.write(json.dumps(results, indent=2))
 
 
 if __name__ == "__main__":
@@ -157,6 +164,11 @@ if __name__ == "__main__":
         # assume it's a file if it doesn't start with http
         with open(args.url, 'r') as f:
             urls = list(set([l.strip().lower() for l in set(f.readlines()) if len(l) > 0]))
+
+        with open("processed_urls.txt", 'r') as f:
+            processed_urls = set([l.strip().lower() for l in set(f.readlines()) if len(l) > 0])
+        
+        urls = [url for url in urls if url not in processed_urls]
     else:
         urls = [args.url]
 
