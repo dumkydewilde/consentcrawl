@@ -15,8 +15,8 @@ Playwright allows you to automate browser windows. This script takes a list of U
 |--no_headless   | Flag to show actual browser windows |
 
 ## In action
-First install Playwright:
-`pip install playwright`
+First install dependencies:
+`pip install -r "requirements.txt"`
 
  And the Playwright browsers:
  `playwright install`
@@ -26,3 +26,26 @@ You can provide either a single URL or a file with one URL per line.
 
 Or for a single site, showing the actual browser window
 `python3 main.py https://www.dumky.net --no_headless`
+
+## Available Consent Managers:
+- onetrust-cookiepro
+- onetrust-enterprise
+- onetrust-optanon
+- cookiebot
+- cookiehub
+- typo3-wacon
+- cookiefirst
+- osano
+- orejime
+- axeptio
+- civic-uk
+- usercentrics
+- cookie-yes
+- secure-privacy
+- quantcast
+- didomi
+- cookie-law
+- trustarc-truste
+- non-specific / Custom (looks for general CSS selectors like "#acceptCookies" or ".cookie-accept")
+
+Are you missing a consent manager? Feel free to open an issue or pull request!
