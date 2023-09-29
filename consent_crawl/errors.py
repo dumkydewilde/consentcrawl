@@ -1,0 +1,2 @@
+class BlocklistsError(Exception):
+    pass

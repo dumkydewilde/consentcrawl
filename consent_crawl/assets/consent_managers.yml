@@ -1,0 +1,158 @@
+- id: onetrust-cookiepro
+  name: OneTrust CookiePro
+  brand: OneTrust
+  actions:
+    - type: css-selector
+      value: "#onetrust-accept-btn-handler"
+
+- id: onetrust-enterprise
+  name: OneTrust Enterprise
+  brand: OneTrust
+  actions:
+    - type: css-selector
+      value: "#accept-recommended-btn-handler"
+
+- id: onetrust-optanon
+  name: Optanon
+  brand: OneTrust
+  actions:
+    - type: css-selector
+      value: ".optanon-allow-all"
+
+- id: cookiebot
+  name: CookieBot
+  brand: CookieBot
+  actions:
+    - type: css-selector
+      value: "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"
+
+- id: cookiehub
+  name: ""
+  actions:
+    - type: css-selector
+      value: "button.ch2-allow-all-btn"
+
+- id: typo3-wacon
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".waconcookiemanagement .cookie-accept"
+
+- id: cookiefirst
+  name: ""
+  actions:
+    - type: css-selector
+      value: "[data-cookiefirst-action='accept']"
+
+- id: osano
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".osano-cm-accept-all"
+
+- id: orejime
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".orejime-Button--save"
+
+- id: axeptio
+  name: ""
+  actions:
+    - type: css-selector
+      value: "#axeptio_btn_acceptAll"
+
+- id: civic-uk-cookie-control
+  name: ""
+  actions:
+    - type: css-selector
+      value: "#ccc-notify-accept"
+
+- id: usercentrics
+  name: ""
+  actions:
+    - type: css-selector
+      value: "[data-testid='uc-accept-all-button']"
+
+- id: cookie-yes
+  name: ""
+  actions:
+    - type: css-selector
+      value: "[data-cky-tag='accept-button']"
+
+- id: secure-privacy
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".evSpAcceptBtn"
+
+- id: quantcast
+  name: ""
+  actions:
+    - type: css-selector
+      value: "#qc-cmp2-ui button[mode='primary']"
+
+- id: didomi
+  name: ""
+  actions:
+    - type: css-selector
+      value: "#didomi-notice-agree-button"
+
+- id: cookie-law-info
+  name: ""
+  actions:
+    - type: css-selector
+      value: "[data-cli_action='accept']"
+
+- id: hubspot-cookie-banner
+  name: HubSpot Cookie Banner
+  brand: HubSpot
+  actions:
+    - type: css-selector
+      value: "#hs-eu-confirmation-button"
+
+- id: trustarc-truste
+  name: ""
+  actions:
+    - type: iframe
+      value: "iframe.truste_popframe, #truste-consent-button"
+    - type: css-selector
+      value: "#truste-consent-button, a.call"
+
+- id: non-specific-custom
+  name: Non Specific Implementation
+  brand: Custom
+  actions:
+    - type: css-selector-list
+      value:
+        - "#AcceptCookiesButton, #acceptCookies, .cookie-accept, #cookie-accept"
+        - "#acptBtn, #js-first-screen-accept-all-button"
+        - "button[class*='accept-all'], button[id*='accept-all'], button[class*='acceptall'], button[id*='acceptall'], a[class*='accept-all'], a[id*='accept-all'], å[class*='acceptall'], a[id*='acceptall']"
+        - "button[class*='confirm'], button[id*='confirm'], a[class*='confirm'], a[id*='confirm']"
+        - ".optIn, .opt-in, .optin, [class*='opt-in'], [id*='opt-in'], [class*='optin'], [id*='optin'], [class*='optIn'], [id*='optIn']"
+        - "[class*='accept-all'], [id*='accept-all'], [class*='acceptall'], [id*='acceptall']"
+        - "button[class*='accept'], button[id*='accept'], a[class*='accept'], a[id*='accept']"
+        - "input[value*='Tracking']"
+        - "[class*='accept'], [id*='accept']"
+        - "[class*='onfirm'], [id*='onfirm']"
+        - "#cookiebanner button, [class*='cookie']"
+        - "[class*='ookie'] button, [id*='ookie'] button"
+
+- id: non-specific-custom-with-iframe
+  name: Non Specific Implementation with iFrame
+  brand: Custom
+  actions:
+    - type: iframe
+      value: "iframe[src*='onsent']"
+    - type: css-selector-list
+      value:
+        - "#AcceptCookiesButton, #acceptCookies, .cookie-accept, #cookie-accept"
+        - "#acptBtn, #js-first-screen-accept-all-button"
+        - "button[class*='accept-all'], button[id*='accept-all'], button[class*='acceptall'], button[id*='acceptall']"
+        - "button[class*='confirm'], button[id*='confirm']"
+        - ".optIn, .opt-in, .optin, [class*='opt-in'], [id*='opt-in'], [class*='optin'], [id*='optin'], [class*='optIn'], [id*='optIn']"
+        - "button[class*='accept'], button[id*='accept']"
+        - "input[value*='Tracking']"
+        - "[class*='accept'], [id*='accept']"
+        - "#cookiebanner button, [class*='cookie']"
+        - "[class*='ookie'] button, [id*='ookie'] button"
