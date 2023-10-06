@@ -1,7 +1,10 @@
-import os, json, logging, datetime, re, base64, random, yaml
+import os, json, logging, datetime, re, base64, random, yaml, sys, asyncio, sqlite3
 from datetime import date, datetime
 import requests
+from pathlib import Path
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
+from playwright.async_api import async_playwright
+from utils import batch
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONSENT_MANAGERS_FILE = f"{MODULE_DIR}/assets/consent_managers.yml"
@@ -43,15 +46,16 @@ async def click_consent_manager(page):
     for cmp in consent_managers:
         parent_locator = page
         locator = None
+        
         for action in cmp["actions"]:
             if action["type"] == "iframe":
                 if await parent_locator.locator(action["value"]).count() > 0:
-                    parent_locator = parent_locator.frame_locator(action["value"])
+                    parent_locator = parent_locator.frame_locator(action["value"]).first
                 else:
                     continue
 
             elif action["type"] == "css-selector":
-                if await parent_locator.locator(action['value']).is_visible():
+                if await parent_locator.locator(action['value']).first.is_visible():
                     locator = parent_locator.locator(action["value"])
                     break
 
@@ -71,8 +75,9 @@ async def click_consent_manager(page):
             try:
                 # explicit wait for navigation as some pages will reload after accepting cookies
                 async with page.expect_navigation(wait_until="networkidle", timeout=15000):
-                    await locator.click(delay=10)
+                    await locator.first.click(delay=10)
                     logging.debug(f"Clicked consent manager '{cmp['id']}'")
+
                     return cmp
             except PlaywrightTimeoutError:
                 logging.debug("Timeout, no navigation")
@@ -92,10 +97,21 @@ async def click_consent_manager(page):
 async def get_jsonld(page):
     json_ld = []
     for item in await page.locator('script[type="application/ld+json"]').all():
-        try:
-            json_ld.append(json.loads(await item.inner_text()))
+        contents = await item.inner_text()
+        try:    
+            # remove potential CDATA tags
+            match = re.search(r'//<!\[CDATA\[\s*(.*?)\s*//\]\]>', contents.strip(), re.DOTALL)
+            if match:
+                json_ld.append(json.loads(match.group(1), strict=False))
+            else:
+                json_ld.append(json.loads(contents.strip(), strict=False))
         except Exception as e: 
             logging.debug(f"Unable to parse JSON-LD: {e}")
+            json_ld.append({
+                "raw" : str(contents),
+                "error": str(e) 
+                })
+
     return json_ld
 
 async def get_meta_tags(page):
@@ -107,7 +123,7 @@ async def get_meta_tags(page):
             logging.debug(f"Unable to get meta tag: {e}")
     return meta_tags
 
-async def crawl_url(url, browser, tracking_domains_list, screenshot=True):
+async def crawl_url(url, browser, tracking_domains_list=[], screenshot=True, device={}, wait_for_timeout=5000):
     """
     Open a new browser context with a URL and extract data about cookies and 
     tracking domains before and after consent.
@@ -130,7 +146,11 @@ async def crawl_url(url, browser, tracking_domains_list, screenshot=True):
         output["url"] = url
         output["extraction_datetime"] = str(datetime.now())
 
-        browser_context = await browser.new_context(user_agent=random.choice(DEFAULT_UA_STRINGS))
+        browser_context = await browser.new_context(
+            user_agent=random.choice(DEFAULT_UA_STRINGS),
+            viewport={ 'width': 1920, 'height': 1080 },
+            **device
+        )
         await browser_context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
         output["domain_name"] = re.search("(?:https?://)?(?:www.)?([^/]+)", url).group(1)
@@ -145,8 +165,13 @@ async def crawl_url(url, browser, tracking_domains_list, screenshot=True):
         page = await browser_context.new_page()
         page.on("request", lambda req: req_urls.append(req.url))
         
-        await page.goto(url, wait_until="networkidle")
-        await page.wait_for_timeout(3000) # additional wait time just to be sure as consent managers can sometimes take a while to load
+        await page.goto(url, wait_until="load", timeout=90000)
+
+        # Do some mouse jiggling to keep some pages happy
+        await page.wait_for_timeout(2000)
+        await page.mouse.move(543, 123)
+        await page.mouse.wheel(0,-123)
+        await page.wait_for_timeout(wait_for_timeout) # additional wait time just to be sure as consent managers can sometimes take a while to load
 
         if screenshot:
             await page.screenshot(path=f'./screenshots/screenshot_{output["id"]}.png')
@@ -191,7 +216,7 @@ async def crawl_url(url, browser, tracking_domains_list, screenshot=True):
         await browser_context.close()
 
         output["status"] = "success"
-        output["status_msg"] = "Successfully extracted data"
+        output["status_msg"] = f"Successfully extracted data from {url}"
 
         return output
 
@@ -204,15 +229,68 @@ async def crawl_url(url, browser, tracking_domains_list, screenshot=True):
 
         return output
 
-def crawl_batch(urls, batch_size=10, **kwargs):
+async def crawl_batch(urls, results_function, batch_size=10, tracking_domains_list=[], browser_config=None, screenshot=False, **kwargs):
     """
-    Run the crawler for multiple URLs in batches.
+    Run the crawler for multiple URLs in batches and apply a (async) function 
+    to the results. Additional arguments can be passed to the results function.
     """
-    # not tested yet
-    results = []
-    for urls_batch in batch(urls, batch_size):
-        results.append(asyncio.run(crawl_url(urls_batch, **kwargs)))
 
-        # data = crawl_url(urls_batch, browser, blocklist, screenshot)
-        # await store_results([r for r in await asyncio.gather(*data) if r], table_name, conn) # run all urls in parallel
+    if not browser_config:
+        browser_config = {
+            "headless" : True,
+            "channel": "msedge"
+        }
+
+    async with async_playwright() as p:
+        logging.debug("Starting browser")
+        browser = await p.chromium.launch(**browser_config)    
+
+        for urls_batch in batch(urls, batch_size):
+            data = [crawl_url(url=url, browser=browser, tracking_domains_list=tracking_domains_list, screenshot=screenshot) for url in urls_batch]
+            results = [r for r in await asyncio.gather(*data)] # run all urls in parallel
+            logging.debug(f"Retrieved batch of {len(data)} URLs")
+            
+            await results_function(results, **kwargs)
+    
+        await browser.close()
+    
+        # return the last batch for convenience
     return results
+
+async def crawl_single(url, tracking_domains_list=[], browser_config=None):
+    if not browser_config:
+        browser_config = {
+            "headless" : True,
+            "channel": "msedge"
+        }
+
+    async with async_playwright() as p:
+        logging.debug("Starting browser")
+        browser = await p.chromium.launch(**browser_config)
+        return await crawl_url(url=url, browser=browser, tracking_domains_list=tracking_domains_list)
+
+
+
+async def store_crawl_results(data, table_name="crawl_results", file=None, results_db_file="crawl_results.db"):
+    if file is not None:
+        Path.mkdir(Path(results_db_file).parent, exist_ok=True)
+        with open(file, 'a') as f:
+            f.writelines([json.dumps(item) + "\n" for item in data])
+    
+    if results_db_file is not None:
+        Path.mkdir(Path(results_db_file).parent, exist_ok=True)
+        
+        conn = sqlite3.connect(results_db_file)
+        c = conn.cursor()
+        c.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ({','.join([f'{k} TEXT' for k in get_extract_schema().keys()])})")
+        conn.commit()
+        
+        logging.info(f"Storing {len(data)} records in database")
+        c = conn.cursor()
+        for d in data:
+            logging.info(f"Storing {d['url']}")
+            d = {k: json.dumps(v) if type(v) in [dict, list, tuple] else v for k, v in d.items()}
+            c.execute(f"INSERT INTO {table_name} VALUES ({','.join(['?' for k in d.keys()])})", tuple(d.values()))
+            conn.commit()
+        
+        conn.close()

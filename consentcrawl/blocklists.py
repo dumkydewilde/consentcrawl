@@ -11,8 +11,10 @@ class Blocklists:
     DB_FILE = f"{MODULE_DIR}/data/blocklists.db"
     TABLE_NAME = "blocklists"
     
-    def __init__(self, db_file=None, source_file=None):
+    def __init__(self, db_file=None, source_file=None, max_age_days=7, force_bootstrap=False):
         self.has_blocklists = False
+        self.max_age_days = max_age_days
+        self.force_bootstrap = force_bootstrap
         self._data = {}
         if db_file:
             self.DB_FILE = db_file
@@ -38,12 +40,12 @@ class Blocklists:
         if self.last_fetch_timestamp > 0:
             self.has_blocklists = True
         
-        if self.blocklists_older_than(7):
-            logging.debug("Blocklists older than 7 days, fetching new data")
+        if self.blocklists_older_than(self.max_age_days):
+            logging.debug(f"Blocklists older than {self.max_age_days} days, fetching new blocklist data")
             self.bootstrap()
         
-        if not self.has_blocklists:
-            logging.debug("No blocklists data available, fetching new data")
+        if not self.has_blocklists or self.force_bootstrap:
+            logging.debug("Fetching new blocklist data...")
             self.bootstrap()
             
         self.get_blocklist_data_from_db()
@@ -81,8 +83,8 @@ class Blocklists:
 
     def blocklists_older_than(self, days: int = 7):
         age_in_seconds = int(time()) - self.last_fetch_timestamp
-        age_in_days = age_in_seconds / (60 * 60 * 24)
-        logging.debug(f'Bootstrap data age in days: {age_in_days} > {days}')
+        age_in_days = int(age_in_seconds / (60 * 60 * 24))
+        logging.debug(f'Bootstrap data age in days: {age_in_days} ( > {days} = {age_in_days > days})')
         return age_in_days > days
 
     def get_blocklists_file(self):

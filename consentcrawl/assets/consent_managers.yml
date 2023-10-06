@@ -1,0 +1,300 @@
+- id: onetrust-cookiepro
+  name: OneTrust CookiePro
+  brand: OneTrust
+  actions:
+    - type: css-selector
+      value: "#onetrust-accept-btn-handler"
+
+- id: onetrust-enterprise
+  name: OneTrust Enterprise
+  brand: OneTrust
+  actions:
+    - type: css-selector-list
+      value: 
+      - "#accept-recommended-btn-handler"
+
+- id: onetrust-optanon
+  name: Optanon
+  brand: OneTrust
+  actions:
+    - type: css-selector
+      value: ".optanon-allow-all"
+
+- id: onetrust-cookielaw
+  name: CookieLaw (CookiePro)
+  brand: OneTrust
+  actions:
+    - type: css-selector
+      value: "#cookielaw_accept"
+
+- id: drupal-eu-cookie-compliance-module
+  name: Drupal EU Cookie Compliance
+  brand: Drupal
+  actions:
+    - type: css-selector
+      value: ".eu-cookie-compliance-banner .agree-button"
+
+- id: joomla-sp-cookie-consent
+  name: JoomlaShaper SP Cookie Consent Extension
+  brand: JoomlaShaper
+  actions:
+    - type: iframe
+      value: "[id*='sp_message_iframe']"
+    - type: css-selector-list
+      value: 
+        - "[title*='ccept'], [title*='agree']"
+        - "[title*='kzept'], [title*='ustimmen']"
+        - "button.sp_choice_type_11"
+
+- id: sparteo-fastcmp
+  name: FastCMP
+  brand: Sparteo
+  actions:
+    - type: iframe
+      value: "iframe#fast-cmp-iframe"
+    - type: css-selector
+      value: ".fast-cmp-home-accept"
+
+- id: google-funding-choices
+  name: Google Funding Choices
+  brand: Google
+  actions:
+    - type: css-selector
+      value: ".fc-cta-consent"
+
+- id: klaro
+  name: Klaro
+  brand: Klaro
+  actions:
+    - type: css-selector
+      value: ".cookie-notice .cm-btn-success" 
+
+- id: ensighten
+  name: Ensighten
+  brand: Ensighten
+  actions:
+    - type: css-selector-list
+      value: 
+        - "#ensNotifyBanner #ensBtnYes"
+        - "#ensNotifyBanner #ensCloseBanner"
+
+- id: gx-software
+  name: GX Software
+  brand: GX Software
+  actions:
+    - type: css-selector
+      value: ".bcGDPR .bcpConsentOKButton"
+
+
+- id: ez-cookie
+  actions:
+    - type: css-selector
+      value: ".ez-cookie-dialog #ez-accept-all"
+
+- id: cookiebot
+  name: CookieBot
+  brand: CookieBot
+  actions:
+    - type: css-selector-list
+      value: 
+        - "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"
+        - "#CybotCookiebotDialogBodyLevelButtonAccept"
+
+- id: cookiebot-custom
+  name: CookieBot Custom
+  brand: CookieBot
+  actions:
+    - type: css-selector
+      value: "#CybotCookiebotDialog [data-controller*='accept']"
+
+- id: cookiehub
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".ch2-container .ch2-allow-all-btn"
+
+- id: typo3-wacon
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".waconcookiemanagement .cookie-accept"
+
+- id: typo3-cookieconsent
+  name: TYPO3 Cookie Consent Extension
+  brand: TYPO3
+  actions:
+    - type: css-selector
+      value: ".dp--cookie-consent .cc-all"
+
+- id: trust-commander
+  name: "Commanders Act - Trust Commander"
+  actions:
+    - type: css-selector-list
+      value: 
+        - "#tc-privacy-wrapper [title*='ccept']"
+        - "#tc-privacy-wrapper [title*='kzept']"
+        - "#tc-privacy-wrapper #popin_tc_privacy_button" 
+
+- id: cookiefirst
+  name: ""
+  actions:
+    - type: css-selector
+      value: "[data-cookiefirst-action='accept']"
+
+- id: osano
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".osano-cm-accept-all"
+
+- id: orejime
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".orejime-Button--save"
+
+- id: axeptio
+  name: ""
+  actions:
+    - type: css-selector
+      value: "#axeptio_btn_acceptAll"
+
+- id: civic-uk-cookie-control
+  name: ""
+  actions:
+    - type: css-selector
+      value: "#ccc-notify-accept"
+
+- id: usercentrics
+  name: ""
+  actions:
+    - type: css-selector-list
+      value: 
+      - "[data-testid='uc-accept-all-button']"
+      - "#uc-btn-accept-banner"
+      - "cmm-cookie-banner .button--accept-all"
+
+- id: cookie-yes
+  name: ""
+  actions:
+    - type: css-selector
+      value: "[data-cky-tag='accept-button']"
+
+- id: secure-privacy
+  name: ""
+  actions:
+    - type: css-selector
+      value: ".evSpAcceptBtn"
+
+- id: quantcast
+  name: ""
+  actions:
+    - type: css-selector
+      value: "#qc-cmp2-ui button[mode='primary']"
+
+- id: didomi
+  name: ""
+  actions:
+    - type: css-selector-list
+      value: 
+        - "#didomi-notice-agree-button"
+        - ".Cmp__action--yes"
+
+- id: mediavine-cmp
+  name: ""
+  actions:
+    - type: css-selector
+      value: "[data-name='mediavine-gdpr-cmp'] [format='primary']"
+
+- id: cookie-law-info
+  name: ""
+  actions:
+    - type: css-selector
+      value: "[data-cli_action='accept']"
+
+- id: consentmanager-net
+  name: "ConsentManager.net"
+  actions:
+    - type: css-selector
+      value: "#cmpwrapper #cmpbntyestxt"
+    
+- id: hubspot-cookie-banner
+  name: HubSpot Cookie Banner
+  brand: HubSpot
+  actions:
+    - type: css-selector
+      value: "#hs-eu-confirmation-button"
+
+- id: liveramp-privacymanager
+  name: LiveRamp PrivacyManager.io
+  brand: LiveRamp
+  actions:
+    - type: iframe
+      value: "#gdpr-consent-notice"
+    - type: css-selector
+      value: "button#save"
+
+- id: trustarc-truste
+  name: ""
+  actions:
+    - type: iframe
+      value: "iframe[src*='trustarc.com']"
+    - type: css-selector-list
+      value: 
+        - "#truste-consent-button, a.call"
+        - ".acceptAll"
+
+- id: sfbx-io
+  name: "SFBX AppConsent"
+  actions:
+    - type: iframe
+      value: "#appconsent > iframe"
+    - type: css-selector
+      value: ".button__acceptAll"
+
+- id: generic-custom
+  name: Non Specific Implementation
+  brand: Custom / Generic
+  actions:
+    - type: css-selector-list
+      value:
+        - "#AcceptCookiesButton, #acceptCookies, .cookie-accept, #cookie-accept"
+        - "#acptBtn, #js-first-screen-accept-all-button, .consentAgree"
+        - "button[class*='accept-all'], button[id*='accept-all'], button[class*='acceptall'], button[id*='acceptall'], a[class*='accept-all'], a[id*='accept-all'], a[class*='acceptall'], a[id*='acceptall']"
+        - "button[class*='confirm'], button[id*='confirm'], a[class*='confirm'], a[id*='confirm']"
+        - ".optIn, .opt-in, .optin, [class*='opt-in'], [id*='opt-in'], [class*='optin'], [id*='optin'], [class*='optIn'], [id*='optIn']"
+        - "[class*='accept-all'], [id*='accept-all'], [class*='acceptall'], [id*='acceptall']"
+        - "button[class*='accept'], button[id*='accept'], a[class*='accept'], a[id*='accept']"
+        - "input[value*='Tracking']"
+        - "[class*='accept'], [id*='accept'], [class*='Accept'], [id*='Accept']"
+        - "[class*='onfirm'], [id*='onfirm']"
+        - "[title*='kzept'], [title*='ustimmen'], [id*='kzept'], [id*='ustimmen'], [class*='akzept'], [class*='zustimmen']"
+        - "[aria-label*='ccept'], [aria-label*='optin'], [aria-label*='opt-in'], [aria-label*='kzept'], [aria-label*='ustimmen']"
+        - "#cookiebanner button, [class*='cookie']"
+        - "[class*='ookie'] button, [id*='ookie'] button"
+        - "[data-tracking-name*='opt-in'], [data-tracking-name*='optin'], [data-tracking-name*='optIn']"
+        
+
+- id: non-specific-custom-with-iframe
+  name: Non Specific Implementation with iFrame
+  brand: Custom
+  actions:
+    - type: iframe
+      value: "iframe[src*='consent'],iframe[src*='cookie'], iframe[src*='gdpr'], iframe[id*='consent'], iframe[id*='cookie'], iframe[id*='gdpr']"
+    - type: css-selector-list
+      value:
+        - "#AcceptCookiesButton, #acceptCookies, .cookie-accept, #cookie-accept"
+        - "#acptBtn, #js-first-screen-accept-all-button, .consentAgree"
+        - "button[class*='accept-all'], button[id*='accept-all'], button[class*='acceptall'], button[id*='acceptall'], a[class*='accept-all'], a[id*='accept-all'], a[class*='acceptall'], a[id*='acceptall']"
+        - "button[class*='confirm'], button[id*='confirm'], a[class*='confirm'], a[id*='confirm']"
+        - ".optIn, .opt-in, .optin, [class*='opt-in'], [id*='opt-in'], [class*='optin'], [id*='optin'], [class*='optIn'], [id*='optIn']"
+        - "[class*='accept-all'], [id*='accept-all'], [class*='acceptall'], [id*='acceptall']"
+        - "button[class*='accept'], button[id*='accept'], a[class*='accept'], a[id*='accept']"
+        - "input[value*='Tracking']"
+        - "[class*='accept'], [id*='accept'], [class*='Accept'], [id*='Accept']"
+        - "[class*='onfirm'], [id*='onfirm']"
+        - "[title*='kzept'], [title*='ustimmen'], [id*='kzept'], [id*='ustimmen'], [class*='akzept'], [class*='zustimmen']"
+        - "[aria-label*='ccept'], [aria-label*='optin'], [aria-label*='opt-in'], [aria-label*='kzept'], [aria-label*='ustimmen']"
+        - "#cookiebanner button, [class*='cookie']"
+        - "[class*='ookie'] button, [id*='ookie'] button"
+        - "[data-tracking-name*='opt-in'], [data-tracking-name*='optin'], [data-tracking-name*='optIn']"

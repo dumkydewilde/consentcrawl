@@ -1,7 +1,7 @@
 screenshots/
 site_data.json
-urls.txt
-consent_crawl/data/
+*urls.txt
+consentcrawl/data/*/**
 
 *.db
 
