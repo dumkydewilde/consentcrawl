@@ -1,0 +1,71 @@
+- id: peter_lowe
+  name: "Peter Lowe's Ad and tracking server list"
+  owner: Peter Lowe
+  homepage: https://pgl.yoyo.org/adservers/index.php
+  url: https://pgl.yoyo.org/adservers/serverlist.php?hostformat=adblock&showintro=1&mimetype=plaintext
+  description: "Peter Lowe's list of ad and tracking servers. This list is well known and has a long history."
+  categories:
+    - ads
+    - tracking
+  type: domains
+
+- id: urlhaus_malicious_hosts
+  name: "Malicious Hosts Blocklist"
+  owner: URLhaus
+  homepage: abuse.ch
+  url: https://urlhaus.abuse.ch/downloads/hostfile/
+  description: "URLhaus is a project from abuse.ch with the goal of sharing malicious URLs that are being used for malware distribution."
+  categories:
+    - malware
+  type: hostfile
+
+- id: adguard_first_party
+  name: "AdGuard first-party ad servers"
+  owner: AdGuard
+  homepage: adguard.com
+  url: https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/BaseFilter/sections/adservers_firstparty.txt
+  description: "AdGuard's list of advertising networks domains, which are hosted on non advertising sites as subdomains."
+  categories:
+    - ads
+  type: blocklist
+
+- id: adguard_adservers
+  name: "AdGuard Ad Servers"
+  owner: AdGuard
+  homepage: adguard.com
+  url: https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/BaseFilter/sections/adservers.txt
+  description: "AdGuard's list of advertising networks"
+  categories:
+    - ads
+  type: blocklist
+
+- id: anudeep
+  name: "Anudeep's Blacklist"
+  owner: Anudeep
+  homepage: https://github.com/anudeepND/blacklist
+  url: https://hosts.anudeep.me/mirror/adservers.txt
+  description: "Curated hostfile to block trackers and advertisements"
+  categories:
+    - ads
+    - tracking
+  type: hostfile
+
+- id: easylist_adservers
+  name: "EasyList Ad Servers"
+  owner: "EasyList authors"
+  homepage: https://easylist.to/
+  url: https://raw.githubusercontent.com/easylist/easylist/master/easylist/easylist_adservers.txt
+  description: ""
+  categories:
+    - ads
+  type: blocklist
+
+- id: easylist_third_party
+  name: "EasyList Third Party"
+  owner: "EasyList authors"
+  homepage: https://easylist.to/
+  url: https://raw.githubusercontent.com/easylist/easylist/master/easylist/easylist_thirdparty.txt
+  description: ""
+  categories:
+    - ads
+  type: blocklist

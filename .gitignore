@@ -1,6 +1,9 @@
 screenshots/
 site_data.json
-urls.txt
+*urls.txt
+consentcrawl/data/*/**
+
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
