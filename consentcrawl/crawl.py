@@ -4,7 +4,8 @@ import requests
 from pathlib import Path
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from playwright.async_api import async_playwright
-from utils import batch
+from playwright.sync_api import sync_playwright
+import utils
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONSENT_MANAGERS_FILE = f"{MODULE_DIR}/assets/consent_managers.yml"
@@ -148,7 +149,7 @@ async def crawl_url(url, browser, tracking_domains_list=[], screenshot=True, dev
 
         browser_context = await browser.new_context(
             user_agent=random.choice(DEFAULT_UA_STRINGS),
-            viewport={ 'width': 1920, 'height': 1080 },
+            viewport={ 'width': 1366, 'height': 768 },
             **device
         )
         await browser_context.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
@@ -245,7 +246,7 @@ async def crawl_batch(urls, results_function, batch_size=10, tracking_domains_li
         logging.debug("Starting browser")
         browser = await p.chromium.launch(**browser_config)    
 
-        for urls_batch in batch(urls, batch_size):
+        for urls_batch in utils.batch(urls, batch_size):
             data = [crawl_url(url=url, browser=browser, tracking_domains_list=tracking_domains_list, screenshot=screenshot) for url in urls_batch]
             results = [r for r in await asyncio.gather(*data)] # run all urls in parallel
             logging.debug(f"Retrieved batch of {len(data)} URLs")
@@ -258,6 +259,8 @@ async def crawl_batch(urls, results_function, batch_size=10, tracking_domains_li
     return results
 
 async def crawl_single(url, tracking_domains_list=[], browser_config=None):
+    """Crawl a single URL asynchronously."""
+
     if not browser_config:
         browser_config = {
             "headless" : True,
@@ -267,7 +270,9 @@ async def crawl_single(url, tracking_domains_list=[], browser_config=None):
     async with async_playwright() as p:
         logging.debug("Starting browser")
         browser = await p.chromium.launch(**browser_config)
+        
         return await crawl_url(url=url, browser=browser, tracking_domains_list=tracking_domains_list)
+        
 
 
 

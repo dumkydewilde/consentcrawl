@@ -1,2 +1,0 @@
-class BlocklistsError(Exception):
-    pass

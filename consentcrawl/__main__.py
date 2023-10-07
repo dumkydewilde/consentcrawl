@@ -1,8 +1,8 @@
 import asyncio, os, re, base64, json, sqlite3
 import logging, argparse, requests, sys
 from datetime import date
-from crawl import click_consent_manager, crawl_url, get_extract_schema, store_crawl_results, crawl_batch
-from utils import string_to_boolean
+import crawl
+import utils
 from blocklists import Blocklists
 
 async def process_urls(urls, batch_size, tracking_domains_list, headless=True, screenshot=True, results_db_file="crawl_results.db"):
@@ -11,10 +11,10 @@ async def process_urls(urls, batch_size, tracking_domains_list, headless=True, s
     and write the data to a file.
     """
 
-    return await crawl_batch(
+    return await crawl.crawl_batch(
         urls=urls, 
         batch_size=batch_size, 
-        results_function=store_crawl_results,
+        results_function=crawl.store_crawl_results,
         tracking_domains_list=tracking_domains_list, 
         browser_config={
             "headless" : headless,
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     parser.add_argument('url', help='URL or file with URLs to test')
     parser.add_argument('--debug', default=False, action="store_true", help="Enable debug logging")
-    parser.add_argument('--headless', default=True, type=string_to_boolean, const=False, nargs='?', help="Run browser in headless mode (yes/no)")
+    parser.add_argument('--headless', default=True, type=utils.string_to_boolean, const=False, nargs='?', help="Run browser in headless mode (yes/no)")
     parser.add_argument('--screenshot', default=False, action="store_true", help="Take screenshots of each page before and after consent is given (if consent manager is detected)")
     parser.add_argument('--bootstrap', default=False, action="store_true", help="Force bootstrap (refresh) of blocklists")
     parser.add_argument('--batch_size', '-b', default=15, type=int, help="Number of URLs (and browser windows) to run in each batch. Default: 15, increase or decrease depending on your system capacity.")

@@ -2,7 +2,6 @@ import requests, logging, json, os, datetime, re, yaml
 from time import time
 from pathlib import Path
 import sqlite3
-from errors import BlocklistsError
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -65,7 +64,7 @@ class Blocklists:
         
     def get_domains(self):
         if not self.has_blocklists:
-            raise BlocklistsError('No blocklists data available.')
+            raise Exception('No blocklists data available.')
         return self._data.keys()
 
     def get_connection(self):

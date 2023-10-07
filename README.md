@@ -5,14 +5,25 @@ Automatically check for GDPR/CCPA consent by running a Playwright headless brows
 Playwright allows you to automate browser windows. This script takes a list of URLs, runs a Playwright browser instance and fetches data about cookies and requested domains for each URL. The URLs are fetched asynchronously and in batches to speed up the process. After the URL is fetched, the script tries to identify the consent manager and click 'accept' to determine if and what marketing and analytics tags are fired before and after consent. It uses a 'blacklist' to determine whether a domain is a tracking (marketing/analytics) domain.
 
 ## CLI Arguments
+usage: 
+```sh
+consentcrawl [-h] [--debug] [--headless [HEADLESS]] [--screenshot] [--bootstrap]
+                    [--batch_size BATCH_SIZE] [--show_output] [--db_file DB_FILE]
+                    [--blocklists BLOCKLISTS]
+                    url
+```
+
 | Argument | Description |
 |----------|-------------|
-| url      | either a single URL starting with 'http' or file containing one url per line
-| --batch_size | Number of URLs to open simultaneously, default is 15
-| --debug   | Flag to log output for debugging |
-| --nd_json | Add flag to store output as new line delimited JSON for use in e.g. BigQuery
-|--no_screenshot   | Flag to not save screenshots |
-|--no_headless   | Flag to show actual browser windows |
+| url      | (required) URL or file with URLs to test
+| --debug  | Enable debug logging
+| --headless | Run browser in headless mode (true/false)
+|  --screenshot | Take screenshots of each page before and after consent is given (ifconsent manager is detected)
+|  --bootstrap | Force bootstrap (refresh) of blocklists
+|  --batch_size, -b | Number of URLs (and browser windows) to run in each batch. Default: 15, increase or decrease depending on your system capacity.
+| --show_output, -o | Show output of the last results in terminal (max 25 results)
+| --db_file, -db | Path to crawl results and blocklist database
+|  --blocklists, -bf | Path to custom blocklists file (YAML)
 
 ## In action
 First install dependencies:
@@ -21,31 +32,58 @@ First install dependencies:
  And the Playwright browsers:
  `playwright install`
 
-You can provide either a single URL or a file with one URL per line.
-`python3 main.py "url_list.txt" --batch_size=10`
+You can provide either a single URL, comma separated list or a file (.txt) with one URL per line.
+`python consentcrawl "google.com, google.nl, google.de --headless=false"`
 
-Or for a single site, showing the actual browser window
-`python3 main.py https://www.dumky.net --no_headless`
+If you have `jq` installed you can pipe the output to jq to directly get, for example, all tracking domains without consent:
+`python consentcrawl rts.ch -o | jq '.[] | .tracking_domains_no_consent'`
+
+Or if you want to import into an existing Python script:
+```python
+import asyncio
+from consentcrawl import crawl
+
+results = asyncio.run(crawl.crawl_single("dumky.net"))
+```
+
+The playwright browser runs asynchronously which is great for running multiple 
+URLs in parallel, but for running a single URL you'll need to use asyncio.run()
+to run the asynchronous function.
 
 ## Available Consent Managers:
-- onetrust-cookiepro
-- onetrust-enterprise
-- onetrust-optanon
-- cookiebot
-- cookiehub
-- typo3-wacon
-- cookiefirst
-- osano
-- orejime
-- axeptio
-- civic-uk
-- usercentrics
-- cookie-yes
-- secure-privacy
-- quantcast
-- didomi
-- cookie-law
-- trustarc-truste
-- non-specific / Custom (looks for general CSS selectors like "#acceptCookies" or ".cookie-accept")
+- OneTrust
+- Optanon
+- CookieLaw (CookiePro)
+- Drupal EU Cookie Compliance
+- JoomlaShaper SP Cookie Consent Extension
+- FastCMP
+- Google Funding Choices
+- Klaro
+- Ensighten
+- GX Software
+- EZ Cookie
+- CookieBot
+- CookieHub
+- TYPO3 Wacon Cookie Management Extension
+- TYPO3 Cookie Consent Extension
+- Commanders Act - Trust Commander
+- CookieFirst
+- Osano
+- Orejime
+- Axceptio
+- Civic UK Cookie Control
+- UserCentrics
+- CookieYes
+- Secure Privacy
+- Quantcast
+- Didomi
+- MediaVine CMP
+- CookieLaw
+- ConsentManager.net
+- HubSpot Cookie Banner
+- LiveRamp PrivacyManager.io
+- TrustArc Truste
+- SFBX AppConsent
+- Non-specific / Custom (looks for general CSS selectors like "#acceptCookies" or ".cookie-accept")
 
 Are you missing a consent manager? Feel free to open an issue or pull request!

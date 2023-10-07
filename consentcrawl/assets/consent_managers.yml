@@ -87,6 +87,8 @@
 
 
 - id: ez-cookie
+  name: EZ Cookie
+  brand: EZ Cookie
   actions:
     - type: css-selector
       value: ".ez-cookie-dialog #ez-accept-all"
@@ -108,26 +110,29 @@
       value: "#CybotCookiebotDialog [data-controller*='accept']"
 
 - id: cookiehub
-  name: ""
+  name: CookieHub
+  brand: CookieHub
   actions:
     - type: css-selector
       value: ".ch2-container .ch2-allow-all-btn"
 
 - id: typo3-wacon
-  name: ""
+  name: TYPO3 Wacon Cookie Management Extension
+  brand: Wacon
   actions:
     - type: css-selector
       value: ".waconcookiemanagement .cookie-accept"
 
 - id: typo3-cookieconsent
   name: TYPO3 Cookie Consent Extension
-  brand: TYPO3
+  brand: DirkPersky
   actions:
     - type: css-selector
       value: ".dp--cookie-consent .cc-all"
 
 - id: trust-commander
-  name: "Commanders Act - Trust Commander"
+  name: Commanders Act - Trust Commander
+  brand: Commanders Act
   actions:
     - type: css-selector-list
       value: 
@@ -136,37 +141,43 @@
         - "#tc-privacy-wrapper #popin_tc_privacy_button" 
 
 - id: cookiefirst
-  name: ""
+  name: CookieFirst
+  brand: CookieFirst
   actions:
     - type: css-selector
       value: "[data-cookiefirst-action='accept']"
 
 - id: osano
-  name: ""
+  name: Osano
+  brand: Osano
   actions:
     - type: css-selector
       value: ".osano-cm-accept-all"
 
 - id: orejime
-  name: ""
+  name: Orejime
+  brand: Orejime
   actions:
     - type: css-selector
       value: ".orejime-Button--save"
 
 - id: axeptio
-  name: ""
+  name: Axceptio
+  brand: Axceptio
   actions:
     - type: css-selector
       value: "#axeptio_btn_acceptAll"
 
 - id: civic-uk-cookie-control
-  name: ""
+  name: Civic UK Cookie Control
+  brand: Civic UK
   actions:
     - type: css-selector
       value: "#ccc-notify-accept"
 
 - id: usercentrics
-  name: ""
+  name: UserCentrics
+  brand: UserCentrics
   actions:
     - type: css-selector-list
       value: 
@@ -175,25 +186,29 @@
       - "cmm-cookie-banner .button--accept-all"
 
 - id: cookie-yes
-  name: ""
+  name: CookieYes
+  brand: CookieYes
   actions:
     - type: css-selector
       value: "[data-cky-tag='accept-button']"
 
 - id: secure-privacy
-  name: ""
+  name: Secure Privacy
+  brand: Secure Privacy
   actions:
     - type: css-selector
       value: ".evSpAcceptBtn"
 
 - id: quantcast
-  name: ""
+  name: Quantcast
+  brand: Quantcast
   actions:
     - type: css-selector
       value: "#qc-cmp2-ui button[mode='primary']"
 
 - id: didomi
-  name: ""
+  name: Didomi
+  brand: Didomi
   actions:
     - type: css-selector-list
       value: 
@@ -201,19 +216,22 @@
         - ".Cmp__action--yes"
 
 - id: mediavine-cmp
-  name: ""
+  name: MediaVine CMP
+  brand: MediaVine
   actions:
     - type: css-selector
       value: "[data-name='mediavine-gdpr-cmp'] [format='primary']"
 
 - id: cookie-law-info
-  name: ""
+  name: CookieLaw
+  brand: CookieLaw
   actions:
     - type: css-selector
       value: "[data-cli_action='accept']"
 
 - id: consentmanager-net
-  name: "ConsentManager.net"
+  name: ConsentManager.net
+  brand: ConsentManager.net
   actions:
     - type: css-selector
       value: "#cmpwrapper #cmpbntyestxt"
@@ -235,7 +253,8 @@
       value: "button#save"
 
 - id: trustarc-truste
-  name: ""
+  name: TrustArc Truste
+  brand: TrustArc
   actions:
     - type: iframe
       value: "iframe[src*='trustarc.com']"
@@ -245,7 +264,8 @@
         - ".acceptAll"
 
 - id: sfbx-io
-  name: "SFBX AppConsent"
+  name: SFBX AppConsent
+  brand: SFBX
   actions:
     - type: iframe
       value: "#appconsent > iframe"
@@ -277,7 +297,7 @@
 
 - id: non-specific-custom-with-iframe
   name: Non Specific Implementation with iFrame
-  brand: Custom
+  brand: Custom / Generic
   actions:
     - type: iframe
       value: "iframe[src*='consent'],iframe[src*='cookie'], iframe[src*='gdpr'], iframe[id*='consent'], iframe[id*='cookie'], iframe[id*='gdpr']"
