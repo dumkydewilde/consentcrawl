@@ -1,8 +1,12 @@
-# auto-consent-checks
+# ConsentCrawl
 Automatically check for GDPR/CCPA consent by running a Playwright headless browser to check for marketing and analytics scripts firing before and after consent. 
-
-## How it works
-Playwright allows you to automate browser windows. This script takes a list of URLs, runs a Playwright browser instance and fetches data about cookies and requested domains for each URL. The URLs are fetched asynchronously and in batches to speed up the process. After the URL is fetched, the script tries to identify the consent manager and click 'accept' to determine if and what marketing and analytics tags are fired before and after consent. It uses a 'blacklist' to determine whether a domain is a tracking (marketing/analytics) domain.
+- Detect 25+ consent managers
+- Detect unconsented third-party domains and cookies
+- Classify tracking domains based on 7 commonly used ad blocking lists
+- Keep screenshots before and after consent
+- Capture JSON-LD and meta tags for convenience
+- Run multiple URLs in batch
+- Add custom blocklists and consent manager lists
 
 ## CLI Arguments
 usage: 
@@ -49,6 +53,9 @@ results = asyncio.run(crawl.crawl_single("dumky.net"))
 The playwright browser runs asynchronously which is great for running multiple 
 URLs in parallel, but for running a single URL you'll need to use asyncio.run()
 to run the asynchronous function.
+
+## How it works
+Playwright allows you to automate browser windows. This script takes a list of URLs, runs a Playwright browser instance and fetches data about cookies and requested domains for each URL. The URLs are fetched asynchronously and in batches to speed up the process. After the URL is fetched, the script tries to identify the consent manager and click 'accept' to determine if and what marketing and analytics tags are fired before and after consent. It uses a 'blocklist' to determine whether a domain is a tracking (marketing/analytics) domain.
 
 ## Available Consent Managers:
 - OneTrust
