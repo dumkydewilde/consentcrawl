@@ -38,7 +38,7 @@ First install dependencies:
 
 You can provide either a single URL, comma separated list or a file (.txt) with one URL per line.
 
-`python consentcrawl "google.com, google.nl, google.de --headless=false"`
+`python consentcrawl google.com,google.nl,google.de --headless=false"`
 
 If you have `jq` installed you can pipe the output to jq to directly get, for example, all tracking domains without consent:
 
