@@ -37,10 +37,33 @@ First install dependencies:
  `playwright install`
 
 You can provide either a single URL, comma separated list or a file (.txt) with one URL per line.
+
 `python consentcrawl "google.com, google.nl, google.de --headless=false"`
 
 If you have `jq` installed you can pipe the output to jq to directly get, for example, all tracking domains without consent:
-`python consentcrawl rts.ch -o | jq '.[] | .tracking_domains_no_consent'`
+
+`python consentcrawl leboncoin.fr,marktplaats.nl -o | jq '.[] | .tracking_domains_no_consent'`
+
+Returns:
+```
+
+[
+  "tiqcdn.com",
+  "criteo.net",
+  "googlesyndication.com",
+  "doubleclick.net"
+]
+[
+  "google-analytics.com",
+  "scorecardresearch.com",
+  "bing.com",
+  "doubleclick.net",
+  "googleadservices.com",
+  "criteo.net",
+  "googletagmanager.com",
+  "spotxchange.com"
+]
+```
 
 Or if you want to import into an existing Python script:
 ```python
