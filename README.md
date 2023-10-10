@@ -1,5 +1,5 @@
 # ConsentCrawl
-Automatically check for GDPR/CCPA consent by running a Playwright headless browser to check for marketing and analytics scripts firing before and after consent. 
+Automatically check for GDPR/CCPA consent by running a Playwright headless browser to check for marketing and analytics scripts firing before and after consent.
 - Detect 25+ consent managers
 - Detect unconsented third-party domains and cookies
 - Classify tracking domains based on 7 commonly used ad blocking lists
@@ -9,7 +9,7 @@ Automatically check for GDPR/CCPA consent by running a Playwright headless brows
 - Add custom blocklists and consent manager lists
 
 ## CLI Arguments
-usage: 
+usage:
 ```sh
 consentcrawl [-h] [--debug] [--headless [HEADLESS]] [--screenshot] [--bootstrap]
                     [--batch_size BATCH_SIZE] [--show_output] [--db_file DB_FILE]
@@ -73,7 +73,7 @@ from consentcrawl import crawl
 results = asyncio.run(crawl.crawl_single("dumky.net"))
 ```
 
-The playwright browser runs asynchronously which is great for running multiple 
+The playwright browser runs asynchronously which is great for running multiple
 URLs in parallel, but for running a single URL you'll need to use asyncio.run()
 to run the asynchronous function.
 

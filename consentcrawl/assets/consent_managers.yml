@@ -10,7 +10,7 @@
   brand: OneTrust
   actions:
     - type: css-selector-list
-      value: 
+      value:
       - "#accept-recommended-btn-handler"
 
 - id: onetrust-optanon
@@ -41,7 +41,7 @@
     - type: iframe
       value: "[id*='sp_message_iframe']"
     - type: css-selector-list
-      value: 
+      value:
         - "[title*='ccept'], [title*='agree']"
         - "[title*='kzept'], [title*='ustimmen']"
         - "button.sp_choice_type_11"
@@ -67,14 +67,14 @@
   brand: Klaro
   actions:
     - type: css-selector
-      value: ".cookie-notice .cm-btn-success" 
+      value: ".cookie-notice .cm-btn-success"
 
 - id: ensighten
   name: Ensighten
   brand: Ensighten
   actions:
     - type: css-selector-list
-      value: 
+      value:
         - "#ensNotifyBanner #ensBtnYes"
         - "#ensNotifyBanner #ensCloseBanner"
 
@@ -98,7 +98,7 @@
   brand: CookieBot
   actions:
     - type: css-selector-list
-      value: 
+      value:
         - "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"
         - "#CybotCookiebotDialogBodyLevelButtonAccept"
 
@@ -135,10 +135,10 @@
   brand: Commanders Act
   actions:
     - type: css-selector-list
-      value: 
+      value:
         - "#tc-privacy-wrapper [title*='ccept']"
         - "#tc-privacy-wrapper [title*='kzept']"
-        - "#tc-privacy-wrapper #popin_tc_privacy_button" 
+        - "#tc-privacy-wrapper #popin_tc_privacy_button"
 
 - id: cookiefirst
   name: CookieFirst
@@ -180,7 +180,7 @@
   brand: UserCentrics
   actions:
     - type: css-selector-list
-      value: 
+      value:
       - "[data-testid='uc-accept-all-button']"
       - "#uc-btn-accept-banner"
       - "cmm-cookie-banner .button--accept-all"
@@ -211,7 +211,7 @@
   brand: Didomi
   actions:
     - type: css-selector-list
-      value: 
+      value:
         - "#didomi-notice-agree-button"
         - ".Cmp__action--yes"
 
@@ -235,7 +235,7 @@
   actions:
     - type: css-selector
       value: "#cmpwrapper #cmpbntyestxt"
-    
+
 - id: hubspot-cookie-banner
   name: HubSpot Cookie Banner
   brand: HubSpot
@@ -259,7 +259,7 @@
     - type: iframe
       value: "iframe[src*='trustarc.com']"
     - type: css-selector-list
-      value: 
+      value:
         - "#truste-consent-button, a.call"
         - ".acceptAll"
 
@@ -293,7 +293,7 @@
         - "#cookiebanner button, [class*='cookie']"
         - "[class*='ookie'] button, [id*='ookie'] button"
         - "[data-tracking-name*='opt-in'], [data-tracking-name*='optin'], [data-tracking-name*='optIn']"
-        
+
 
 - id: non-specific-custom-with-iframe
   name: Non Specific Implementation with iFrame
