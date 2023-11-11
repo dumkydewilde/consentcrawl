@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "consentcrawl"
+version = "0.1.0"
+description = "Automatically check for GDPR/CCPA consent by running a Playwright headless browser to check for marketing and analytics scripts firing before and after consent."
+authors = ["Dumky de Wilde"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+playwright = ">=1.34,<2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
