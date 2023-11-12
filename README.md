@@ -34,23 +34,21 @@ consentcrawl [-h] [--debug] [--headless [HEADLESS]] [--screenshot] [--bootstrap]
 |  --blocklists, -bf | Path to custom blocklists file (YAML)
 
 ## In action
-First install dependencies:
-`pip install -r "requirements.txt"`
+Download and install with:
+`pip install consentcrawl`
 
- And the Playwright browsers:
- `playwright install`
+The [Playwright (headless) browsers](https://playwright.dev/python/docs/browsers) are not automatically installed so run `playwright install` to install all or specify e.g. `playwright install chromium`
 
-You can provide either a single URL, comma separated list or a file (.txt) with one URL per line.
+When running `consentcrawl` You can provide either a single URL, comma separated list or a file (.txt) with one URL per line:
 
-`python consentcrawl google.com,google.nl,google.de --headless=false"`
+`consentcrawl google.com,google.nl,google.de --headless=false -o`
 
 If you have `jq` installed you can pipe the output to jq to directly get, for example, all tracking domains without consent:
 
-`python consentcrawl leboncoin.fr,marktplaats.nl -o | jq '.[] | .tracking_domains_no_consent'`
+`consentcrawl leboncoin.fr,marktplaats.nl,ebay.com -o | jq '.[] | .tracking_domains_no_consent'`
 
 Returns:
-```
-
+```json
 [
   "tiqcdn.com",
   "criteo.net",
@@ -66,6 +64,9 @@ Returns:
   "criteo.net",
   "googletagmanager.com",
   "spotxchange.com"
+]
+[
+  "doubleclick.net"
 ]
 ```
 
