@@ -1,3 +1,7 @@
+
+[![PyPI](https://img.shields.io/pypi/v/consentcrawl.svg?maxAge=3600)](https://pypi.python.org/pypi/consentcrawl)
+[![PyPI](https://img.shields.io/pypi/pyversions/consentcrawl.svg?maxAge=3600)](https://pypi.python.org/pypi/consentcrawl)
+
 # ConsentCrawl
 Automatically check for GDPR/CCPA consent by running a Playwright headless browser to check for marketing and analytics scripts firing before and after consent.
 - Detect 25+ consent managers
@@ -117,3 +121,7 @@ Playwright allows you to automate browser windows. This script takes a list of U
 - Non-specific / Custom (looks for general CSS selectors like "#acceptCookies" or ".cookie-accept")
 
 Are you missing a consent manager? Have a look at [the full list](consentcrawl/assets/consent_managers.yml) and feel free to open an issue or pull request!
+
+## To Do
+- [ ] Detect consent managers with cookies instead of just CSS selectors
+- [ ]

@@ -6,6 +6,21 @@ authors = ["Dumky de Wilde"]
 license = "MIT"
 readme = "README.md"
 
+homepage = "https://github.com/dumkydewilde/consentcrawl/"
+repository = "https://github.com/dumkydewilde/consentcrawl/"
+documentation = "https://github.com/dumkydewilde/consentcrawl/main/README.md"
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet",
+    "Topic :: Internet :: WWW/HTTP :: Site Management",
+    "Topic :: Software Development :: Libraries"
+]
+
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.31.0"
