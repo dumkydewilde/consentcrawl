@@ -32,7 +32,7 @@
   brand: Drupal
   actions:
     - type: css-selector
-      value: ".eu-cookie-compliance-banner .agree-button"
+      value: "[class*=eu-cookie-compliance-] .agree-button"
 
 - id: joomla-sp-cookie-consent
   name: JoomlaShaper SP Cookie Consent Extension
