@@ -272,6 +272,14 @@
     - type: css-selector
       value: ".button__acceptAll"
 
+- id: wp-complianz
+  name: Complianz - GDPR/CCPA Cookie Consent
+  url: complianz.io
+  brand: Really Simple Plugins
+  actions:
+    - type: css-selector
+      value: ".cmplz-accept"
+
 - id: generic-custom
   name: Non Specific Implementation
   brand: Custom / Generic
