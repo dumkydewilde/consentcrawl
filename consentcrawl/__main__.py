@@ -3,7 +3,6 @@ import os
 import json
 import logging
 import argparse
-import requests
 import sys
 import crawl
 import utils
@@ -30,6 +29,7 @@ async def process_urls(
         tracking_domains_list=tracking_domains_list,
         browser_config={"headless": headless, "channel": "msedge"},
         results_db_file=results_db_file,
+        screenshot=screenshot,
     )
 
 

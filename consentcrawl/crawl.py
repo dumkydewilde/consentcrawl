@@ -9,11 +9,9 @@ import yaml
 import asyncio
 import sqlite3
 from datetime import date, datetime
-import requests
 from pathlib import Path
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from playwright.async_api import async_playwright
-from playwright.sync_api import sync_playwright
 import utils
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
