@@ -70,6 +70,8 @@ Returns:
 ]
 ```
 
+By default the results of your queries will be stored in a SQLite database called `crawl_results.db`.
+
 Or if you want to import into an existing Python script:
 ```python
 import asyncio
