@@ -12,7 +12,7 @@ from datetime import date, datetime
 from pathlib import Path
 from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from playwright.async_api import async_playwright
-import utils
+from consentcrawl import utils
 
 MODULE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONSENT_MANAGERS_FILE = f"{MODULE_DIR}/assets/consent_managers.yml"

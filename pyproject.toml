@@ -25,6 +25,10 @@ classifiers = [
 python = "^3.10"
 requests = "^2.31.0"
 playwright = ">=1.34,<2.0"
+pyyaml = "^6.0.1"
+
+[tool.poetry.scripts]
+consentcrawl = "consentcrawl.cli:cli"
 
 
 [build-system]
