@@ -125,4 +125,4 @@ Are you missing a consent manager? Have a look at [the full list](consentcrawl/a
 
 ## To Do
 - [ ] Detect consent managers with cookies instead of just CSS selectors
-- [ ]
+- [ ] Show progress when using CLI

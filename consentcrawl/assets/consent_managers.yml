@@ -32,7 +32,7 @@
   brand: Drupal
   actions:
     - type: css-selector
-      value: ".eu-cookie-compliance-banner .agree-button"
+      value: "[class*=eu-cookie-compliance-] .agree-button"
 
 - id: joomla-sp-cookie-consent
   name: JoomlaShaper SP Cookie Consent Extension
@@ -271,6 +271,21 @@
       value: "#appconsent > iframe"
     - type: css-selector
       value: ".button__acceptAll"
+
+- id: wp-complianz
+  name: Complianz - GDPR/CCPA Cookie Consent
+  url: complianz.io
+  brand: Really Simple Plugins
+  actions:
+    - type: css-selector
+      value: ".cmplz-accept"
+
+- id: cookie-script
+  name: Cookie Script
+  brand: Cookie Script
+  actions:
+    - type: css-selector
+      value: "#cookiescript_accept"
 
 - id: generic-custom
   name: Non Specific Implementation
