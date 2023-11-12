@@ -280,6 +280,13 @@
     - type: css-selector
       value: ".cmplz-accept"
 
+- id: cookie-script
+  name: Cookie Script
+  brand: Cookie Script
+  actions:
+    - type: css-selector
+      value: "#cookiescript_accept"
+
 - id: generic-custom
   name: Non Specific Implementation
   brand: Custom / Generic
