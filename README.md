@@ -125,5 +125,6 @@ Playwright allows you to automate browser windows. This script takes a list of U
 Are you missing a consent manager? Have a look at [the full list](consentcrawl/assets/consent_managers.yml) and feel free to open an issue or pull request!
 
 ## To Do
+- [ ] Follow redirects on URLs
 - [ ] Detect consent managers with cookies instead of just CSS selectors
 - [ ] Show progress when using CLI
