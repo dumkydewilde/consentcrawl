@@ -122,6 +122,11 @@ Playwright allows you to automate browser windows. This script takes a list of U
 - SFBX AppConsent
 - Non-specific / Custom (looks for general CSS selectors like "#acceptCookies" or ".cookie-accept")
 
+## Examples
+The examples folder shows examples to run ConsentCrawl:
+- as a Github Action
+- on Google Cloud Run with a simple FastAPI server that responds with the ConsentCrawl results on a POST request to a `/consentcrawl` endpoint.
+
 Are you missing a consent manager? Have a look at [the full list](consentcrawl/assets/consent_managers.yml) and feel free to open an issue or pull request!
 
 ## To Do
