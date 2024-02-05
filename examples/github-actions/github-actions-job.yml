@@ -1,0 +1,27 @@
+name: Jobs
+on:
+    workflow_dispatch:
+    push:
+      branches:
+        - main
+
+jobs:
+  consentcrawler:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright/python:next-jammy-amd64 # use the official Playwright container
+
+    steps:
+        - uses: actions/checkout@v4
+        - run: apt-get update && apt-get install -y jq # install jq for parsing JSON
+        - run: pip install consentcrawl # install the consentcrawl package
+        - run: playwright install msedge # install the Edge browser which is not installed by default
+        - name: check unconsented tracking domains # Output the results and fetch all domains in 'tracking_domains_no_consent'
+          run: |
+            output=$(consentcrawl dumky.net -o | jq '.[] | .tracking_domains_no_consent')
+            if [[ "$output" != "[]" ]]; then
+              echo "Tracking domains found without consent"
+              echo "Output: $output"
+              exit 1
+            else
+              echo "No tracking domains found without consent"
+            fi

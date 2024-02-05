@@ -1,0 +1,4 @@
+consentcrawl>=0.1.2,<0.2.0
+fastapi>=0.103.0,<0.104.0
+uvicorn>=0.23.2,<0.24.0
+playwright>=1.39.0,<1.40.0
