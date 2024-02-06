@@ -287,6 +287,20 @@
     - type: css-selector
       value: "#cookiescript_accept"
 
+- id: finsweet-webflow
+  name: Finsweet Cookie Consent for webflow
+  brand: Finsweet
+  actions:
+    - type: css-selector
+      value: "[fs-cc=allow]"
+
+- id: piwik-pro-gdpr-consent-manager
+  name: Piwik PRO GDPR Consent Manager
+  brand: Piwik PRO
+  actions:
+    - type: css-selector
+      value: "button#ppms_cm_agree-to-all"
+
 - id: generic-custom
   name: Non Specific Implementation
   brand: Custom / Generic
