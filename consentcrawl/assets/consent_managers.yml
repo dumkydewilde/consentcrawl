@@ -34,9 +34,9 @@
     - type: css-selector
       value: "[class*=eu-cookie-compliance-] .agree-button"
 
-- id: joomla-sp-cookie-consent
-  name: JoomlaShaper SP Cookie Consent Extension
-  brand: JoomlaShaper
+- id: sourcepoint-cmp
+  name: Sourcepoint CMP
+  brand: Sourcepoint
   actions:
     - type: iframe
       value: "[id*='sp_message_iframe']"
@@ -45,6 +45,13 @@
         - "[title*='ccept'], [title*='agree']"
         - "[title*='kzept'], [title*='ustimmen']"
         - "button.sp_choice_type_11"
+
+- id: joomshaper-cookie-consent
+  name: SP Cookie Consent Extension
+  brand: JoomShaper
+  actions:
+    - type: css-selector
+      value: ".sp-cookie-consent .sp-cookie-allow"
 
 - id: sparteo-fastcmp
   name: FastCMP
