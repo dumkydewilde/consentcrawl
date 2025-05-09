@@ -171,9 +171,13 @@ async def crawl_url(
         output["url"] = url
         output["extraction_datetime"] = str(datetime.now())
 
+        if not "user_agent" in device:
+            device["user_agent"] = random.choice(DEFAULT_UA_STRINGS)
+
+        if not "viewport" in device:
+            device["viewport"] = {"width": 1366, "height": 768}
+
         browser_context = await browser.new_context(
-            user_agent=random.choice(DEFAULT_UA_STRINGS),
-            viewport={"width": 1366, "height": 768},
             **device,
         )
         await browser_context.add_init_script(
