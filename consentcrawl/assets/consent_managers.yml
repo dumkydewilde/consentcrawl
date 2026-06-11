@@ -308,6 +308,40 @@
     - type: css-selector
       value: "button#ppms_cm_agree-to-all"
 
+- id: iubenda
+  name: iubenda Cookie Solution
+  brand: iubenda
+  actions:
+    - type: css-selector-list
+      value:
+        - ".iubenda-cs-accept-btn"
+        - "#iubenda-cs-banner .iubenda-cs-accept-btn"
+
+- id: termly
+  name: Termly
+  brand: Termly
+  actions:
+    - type: css-selector-list
+      value:
+        - "[aria-label='Cookie Consent Prompt'] [data-tid='banner-accept']"
+        - ".t-acceptAllButton"
+
+- id: ketch
+  name: Ketch
+  brand: Ketch
+  actions:
+    - type: css-selector-list
+      value:
+        - "#ketch-banner-button-primary"
+        - "#lanyard_root button[data-testid='Accept All']"
+
+- id: consent-studio
+  name: Consent Studio
+  brand: Consent Studio
+  actions:
+    - type: css-selector
+      value: "button[cs-consent='all']"
+
 - id: generic-custom
   name: Non Specific Implementation
   brand: Custom / Generic
