@@ -335,6 +335,13 @@
         - "#ketch-banner-button-primary"
         - "#lanyard_root button[data-testid='Accept All']"
 
+- id: consent-studio
+  name: Consent Studio
+  brand: Consent Studio
+  actions:
+    - type: css-selector
+      value: "button[cs-consent='all']"
+
 - id: generic-custom
   name: Non Specific Implementation
   brand: Custom / Generic
