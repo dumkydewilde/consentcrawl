@@ -34,6 +34,13 @@
     - type: css-selector
       value: "[class*=eu-cookie-compliance-] .agree-button"
 
+- id: cookiesjsr
+  name: cookiesjsr
+  brand: cookiesjsr
+  actions:
+    - type: css-selector
+      value: ".cookiesjsr-btn.allowAll"
+
 - id: sourcepoint-cmp
   name: Sourcepoint CMP
   brand: Sourcepoint
